@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:geolocator/geolocator.dart';
 
 class PositionDetector{
@@ -6,12 +8,17 @@ class PositionDetector{
 
   PositionDetector();
 
-  void currentPosition() async {
-      _position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
+  startPositionStream() {
+    var geolocator = Geolocator();
+    var locationOptions = LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 10);
+
+    StreamSubscription<Position> positionStream = geolocator.getPositionStream(locationOptions).listen(
+    (Position position) {
+        _position = position;
+    });
   }
 
-  double get latitude => _position.latitude;
-  double get longitude => _position.longitude;
-  double get speed => _position.speed;
-  DateTime get timestamp => _position.timestamp;
+
+  Position get position => _position;
+
 }

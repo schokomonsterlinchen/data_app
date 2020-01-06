@@ -10,6 +10,8 @@
 //   > Rotation y
 //   > Rotation z
 
+import 'package:geolocator/geolocator.dart';
+
 class Table {
   List<Entry> _table;
 
@@ -28,9 +30,7 @@ class Table {
 
 class Entry {
   int _counter;
-  DateTime _time;
-  double _lat;
-  double _lon;
+  Position _position;
   double _accx;
   double _accy;
   double _accz;
@@ -38,13 +38,11 @@ class Entry {
   double _roty;
   double _rotz;
   
-  Entry(this._counter, this._time, this._lat, this._lon, this._accx, this._accy, this._accz, this._rotx, this._roty, this._rotz);
+  Entry(this._counter, this._position, this._accx, this._accy, this._accz, this._rotx, this._roty, this._rotz);
 
   
   int get counter =>_counter;
-  DateTime get time => _time;
-  double get latitude => _lat;
-  double get longitude => _lon;
+  Position get position => _position;
   double get accelerationX => _accx;
   double get accelerationY => _accy;
   double get accelerationZ => _accz;

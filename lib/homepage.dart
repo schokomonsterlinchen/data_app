@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:data_app/timer.dart';
+import 'package:geolocator/geolocator.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -22,7 +25,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _counter = 0;
-  
+  Position _currentPosition;
 
 
 
@@ -35,10 +38,13 @@ class _HomePageState extends State<HomePage> {
       // called again, and so nothing would appear to happen.
       if (_counter == 0) {
         initTimer();
+      } else {
+        _currentPosition = entry.position;
       }
       _counter++;
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +88,7 @@ class _HomePageState extends State<HomePage> {
               style: Theme.of(context).textTheme.display1,
             ),
             Text(
-              '$entry',
+              '$_currentPosition',
               style: Theme.of(context).textTheme.display1,
             ),
           ],
